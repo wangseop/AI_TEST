@@ -52,7 +52,7 @@ Y_test = np_utils.to_categorical(Y_test)        # 0000001000 : 6 값을 의미
 # print(Y_test.shape)
 
 
-def build_network(keep_prob=0.05, optimizer='adam'):
+def build_network(keep_prob=0.45, optimizer='adam'):
     # 컨볼루션 신경망의 설정
     inputs = Input(shape=(32,32,3), name='input')
     x = Conv2D(30, kernel_size=(3,3), activation='relu')(inputs)
@@ -88,6 +88,6 @@ def build_network(keep_prob=0.05, optimizer='adam'):
 
 model = build_network()
 
-model.fit(X_train, Y_train, epochs=10, batch_size=20, validation_data=(X_val, Y_val))
+model.fit(X_train, Y_train, epochs=150, batch_size=40, validation_data=(X_val, Y_val))
 print("score :", model.evaluate(X_test, Y_test)[1])
 

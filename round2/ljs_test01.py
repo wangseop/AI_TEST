@@ -113,7 +113,7 @@ hyperparameters = create_hyperparameters()
 pipe = Pipeline([('minmax', data_scaling(X_train)), ('model', model)])
 # pipe = Pipeline([('minmax', MinMaxScaler()), ('model', model)])
 search = RandomizedSearchCV(estimator=pipe, param_distributions=hyperparameters,
-                            n_iter=5, n_jobs=-1, cv=5)
+                            n_iter=10, n_jobs=-1, cv=5)
 
 
 
