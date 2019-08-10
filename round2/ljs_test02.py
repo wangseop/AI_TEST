@@ -52,29 +52,29 @@ Y_test = np_utils.to_categorical(Y_test)        # 0000001000 : 6 값을 의미
 # print(Y_test.shape)
 
 
-def build_network(keep_prob=0.05, optimizer='rmsprop'):
+def build_network(keep_prob=0.05, optimizer='adam'):
     # 컨볼루션 신경망의 설정
-    # inputs = Input(shape=(32,32,3), name='input')
-    # x = Conv2D(30, kernel_size=(3,3), activation='relu')(inputs)
-    # x = Conv2D(32, (3,3), activation='relu')(x)
-    # x = MaxPooling2D(pool_size=2)(x)
-    # x = Conv2D(40, (3,3), activation='relu')(x)
-    # x = Dropout(keep_prob)(x)
-    # x = Flatten()(x)
-    # x = Dense(128, activation='relu')(x)
-    # x = Dropout(keep_prob)(x)
-    # prediction = Dense(10, activation='softmax', name='output')(x)
     inputs = Input(shape=(32,32,3), name='input')
-    x = Conv2D(5, kernel_size=(3,3), activation='relu')(inputs)
+    x = Conv2D(30, kernel_size=(3,3), activation='relu')(inputs)
+    x = Conv2D(32, (3,3), activation='relu')(x)
     x = MaxPooling2D(pool_size=2)(x)
-    x = Conv2D(5, (4,4), activation='relu')(x)
-    x = MaxPooling2D(pool_size=4)(x)
-    x = Conv2D(5, (3,3), activation='relu')(x)
+    x = Conv2D(40, (3,3), activation='relu')(x)
     x = Dropout(keep_prob)(x)
     x = Flatten()(x)
-    x = Dense(10, activation='relu')(x)
+    x = Dense(128, activation='relu')(x)
     x = Dropout(keep_prob)(x)
     prediction = Dense(10, activation='softmax', name='output')(x)
+    # inputs = Input(shape=(32,32,3), name='input')
+    # x = Conv2D(5, kernel_size=(3,3), activation='relu')(inputs)
+    # x = MaxPooling2D(pool_size=2)(x)
+    # x = Conv2D(5, (4,4), activation='relu')(x)
+    # x = MaxPooling2D(pool_size=4)(x)
+    # x = Conv2D(5, (3,3), activation='relu')(x)
+    # x = Dropout(keep_prob)(x)
+    # x = Flatten()(x)
+    # x = Dense(10, activation='relu')(x)
+    # x = Dropout(keep_prob)(x)
+    # prediction = Dense(10, activation='softmax', name='output')(x)
     model = Model(inputs=inputs, outputs=prediction)
     model.compile(loss='categorical_crossentropy',  # 분류 모델은 loss로 categorical_crossentropy 사용
                 optimizer=optimizer,
@@ -88,6 +88,6 @@ def build_network(keep_prob=0.05, optimizer='rmsprop'):
 
 model = build_network()
 
-model.fit(X_train, Y_train, epochs=50, batch_size=20, validation_data=(X_val, Y_val))
+model.fit(X_train, Y_train, epochs=10, batch_size=20, validation_data=(X_val, Y_val))
 print("score :", model.evaluate(X_test, Y_test)[1])
 
